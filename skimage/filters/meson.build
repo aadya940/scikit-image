@@ -26,7 +26,9 @@ python_sources = [
   'edges.py',
   'lpi_filter.py',
   'ridges.py',
-  'thresholding.py'
+  'thresholding.py',
+  '_bilateral_3d.c',
+  '_bilateral_3d.h',
 ]
 
 py3.install_sources(
