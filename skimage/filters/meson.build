@@ -1,10 +1,25 @@
 extensions = [
-  '_multiotsu'
+  '_multiotsu',
+  '_bilateral_3d'
 ]
 
 foreach ext: extensions
   py3.extension_module(ext,
     cython_gen.process(ext + '.pyx'),
+    c_args: cython_c_args,
+    include_directories: [incdir_numpy, '../_shared'],
+    install: true,
+    subdir: 'skimage/filters'
+  )
+endforeach
+
+wrap_extensions = [
+  [['_bilateral_3d'], ['_bilateral_3d.c']],
+]
+
+foreach ext: wrap_extensions
+  py3.extension_module(ext,
+    [cython_gen.process(ext[0][0] + '.pyx')] + ext[1],
     c_args: cython_c_args,
     include_directories: [incdir_numpy, '../_shared'],
     install: true,
@@ -27,8 +42,6 @@ python_sources = [
   'lpi_filter.py',
   'ridges.py',
   'thresholding.py',
-  '_bilateral_3d.c',
-  '_bilateral_3d.h',
 ]
 
 py3.install_sources(

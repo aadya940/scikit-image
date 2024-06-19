@@ -1,19 +1,6 @@
-cdef from extern "_bilateral_3d.h":
-    void _apply_bilateral_filter(double*** original_image,
-                                 double*** filtered_image,
-                                 int x,
-                                 int y,
-                                 int z,
-                                 int diameter,
-                                 double sigma_i,
-                                 double sigma_s,
-                                 int dim_x,
-                                 int dim_y,
-                                 int dim_z)
-
 import numpy as np
 cimport numpy as np
-
+from ._bilateral_3d cimport _apply_bilateral_filter
 
 def apply_bilateral_filter(np.ndarray[np.float64_t, ndim=3] original_image,
                            np.ndarray[np.float64_t, ndim=3] filtered_image,
